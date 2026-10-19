@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+</head>
+<body>
+
+    <h1>To-Do List</h1>
+
+    <label for="kegiatan">Masukkan kegiatan:</label>
+    <input type="text" id="kegiatan" placeholder="Contoh: Belajar JavaScript">
+
+    <button onclick="tambahKegiatan()">Tambah</button>
+
+    <h2>Daftar Kegiatan</h2>
+
+    <ul id="daftarKegiatan"></ul>
+
+    <script>
+        function tambahKegiatan() {
+            // Mengambil input kegiatan
+            let input = document.getElementById("kegiatan");
+            let kegiatan = input.value.trim();
+
+            // Memeriksa apakah input kosong
+            if (kegiatan === "") {
+                alert("Silakan masukkan kegiatan terlebih dahulu!");
+                return;
+            }
+
+            // Membuat elemen daftar baru
+            let daftar = document.getElementById("daftarKegiatan");
+            let item = document.createElement("li");
+
+            // Membuat teks kegiatan
+            let teks = document.createElement("span");
+            teks.textContent = kegiatan;
+
+            // Membuat tombol selesai
+            let tombolSelesai = document.createElement("button");
+            tombolSelesai.textContent = "Selesai";
+
+            tombolSelesai.onclick = function() {
+                if (teks.style.textDecoration === "line-through") {
+                    teks.style.textDecoration = "none";
+                    tombolSelesai.textContent = "Selesai";
+                } else {
+                    teks.style.textDecoration = "line-through";
+                    tombolSelesai.textContent = "Batalkan";
+                }
+            };
+
+            // Membuat tombol hapus
+            let tombolHapus = document.createElement("button");
+            tombolHapus.textContent = "Hapus";
+
+            tombolHapus.onclick = function() {
+                daftar.removeChild(item);
+            };
+
+            // Menambahkan elemen ke daftar
+            item.appendChild(teks);
+            item.appendChild(document.createTextNode(" "));
+            item.appendChild(tombolSelesai);
+            item.appendChild(document.createTextNode(" "));
+            item.appendChild(tombolHapus);
+
+            daftar.appendChild(item);
+
+            // Mengosongkan input setelah ditambahkan
+            input.value = "";
+            input.focus();
+        }
+    </script>
+
+</body>
+</html>
